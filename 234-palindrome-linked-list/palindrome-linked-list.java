@@ -52,7 +52,7 @@ class Solution {
             secondHead = secondHead.next;
             firstHead = firstHead.next;
         }
-            reverseList(repeatHead);
+            // reverseList(repeatHead);
            return true;
     }
    
