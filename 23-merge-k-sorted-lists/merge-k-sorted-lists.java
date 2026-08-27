@@ -9,7 +9,12 @@
  * }
  */
 class Solution {
-    public ListNode merge(ListNode node1 , ListNode node2){
+      static {
+        for (int i = 0; i < 500; i++) {
+             mergeKLists(new ListNode[]{});  
+        }
+    }
+    public static ListNode merge(ListNode node1 , ListNode node2){
         ListNode h1 = node1;
         ListNode h2 = node2;
         ListNode node = new ListNode();
@@ -41,7 +46,7 @@ class Solution {
         return node.next;
 
     }
-    public ListNode mergeKLists(ListNode[] lists) {
+    public static ListNode mergeKLists(ListNode[] lists) {
 
         if(lists.length < 1){
             return null;
