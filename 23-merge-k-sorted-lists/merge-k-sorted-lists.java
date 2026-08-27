@@ -9,11 +9,11 @@
  * }
  */
 class Solution {
-      static {
-        for (int i = 0; i < 500; i++) {
-             mergeKLists(new ListNode[]{});  
-        }
-    }
+    //   static {
+    //     for (int i = 0; i < 500; i++) {
+    //          mergeKLists(new ListNode[]{});  
+    //     }
+    // }
     public static ListNode merge(ListNode node1 , ListNode node2){
         ListNode h1 = node1;
         ListNode h2 = node2;
