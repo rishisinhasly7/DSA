@@ -8,6 +8,7 @@ class Solution {
         if(nums[i] > start){
             start = nums[i];
         }
+       }
 
     while(start < end){
 
@@ -30,8 +31,8 @@ class Solution {
         }
 
 
-    }
+    }  
+    return end;
        } 
-       return end;
+     
     }
-}
