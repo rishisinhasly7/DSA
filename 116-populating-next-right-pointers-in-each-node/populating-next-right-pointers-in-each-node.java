@@ -33,25 +33,28 @@ class Solution {
         queue.offer(root);
 
         while(!queue.isEmpty()){
-            int size = queue.size();
-            Node border = null;
-            for(int i=0;i<size;i++){
-                t = queue.poll();
-                if(t != null && t.left != null){
-                    queue.offer(t.left);
-                    if(border != null){
-                        border.next = t.left;
-                    }
-                    t.left.next = t.right;
-                }
+        int size = queue.size();
+        Node temp = null;
+        Node border = null;
 
-                if(t != null && t.right != null){
-                    queue.offer(t.right);  
-                    border = t.right;
-                }
+        for(int i=0;i<size;i++){
+     
+        temp = queue.poll();
+
+        if(temp != null && temp.left != null){
+            queue.offer(temp.left);
+            if(border != null){
+                border.next = temp.left;
             }
-             
-           t.next = null;
+            temp.left.next = temp.right;
+        }
+
+        if(temp != null && temp.right != null){
+            queue.offer(temp.right);
+            border = temp.right;
+            }
+        }
+           temp.next = null;
         }
         return root;
         
