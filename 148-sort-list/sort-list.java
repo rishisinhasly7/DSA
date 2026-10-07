@@ -9,6 +9,7 @@
  * }
  */
 class Solution {
+    
     public ListNode sortList(ListNode head) {
         if(head == null || head.next == null){
             return head;
@@ -17,55 +18,60 @@ class Solution {
         ListNode left = sortList(head);
         ListNode right = sortList(mid);
 
-        return merge(left , right);
+        return mergeSort(left , right);
 
     }
-
-    public ListNode merge(ListNode list1 , ListNode list2){
-        ListNode head1 = list1;
-        ListNode head2 = list2;
-        ListNode node = new ListNode();
-        ListNode temp = node;
-
-        while(head1 != null && head2 != null){
-            if(head1.val < head2.val){
-                temp.next = head1;
-                head1 = head1.next;
-                temp = temp.next;
+    public ListNode mergeSort(ListNode a , ListNode b){
+        if(a == null && b == null){
+            return null;
+        }
+        ListNode dummy = new ListNode();
+        ListNode head = null;
+        while(a != null && b != null){
+            if(a.val < b.val){
+                dummy.next = a;
+                a = a.next;
+                dummy = dummy.next;
             }else{
-                temp.next = head2;
-                head2 = head2.next;
-                temp = temp.next;
+                dummy.next = b;
+                b = b.next;
+                dummy = dummy.next;
             }
-        }        
-        while(head1 != null){
-            temp.next = head1;
-            head1 = head1.next;
-            temp = temp.next;
+
+            if(head == null){
+                head = dummy;
+            }
         }
-        while(head2 != null){
-            temp.next = head2;
-            head2 = head2.next;
-            temp = temp.next;
+        while(a != null){
+            dummy.next = a;
+            a = a.next;
+            dummy = dummy.next;
+            if(head == null){
+                head = dummy;
+            }
         }
-        return node.next;
+
+        while(b != null){
+            dummy.next = b;
+            b = b.next;
+            dummy = dummy.next;
+            if(head == null){
+                head = dummy;
+            }
+        }
+        return head;
     }
 
     public ListNode findMid(ListNode head){
-        ListNode temp = head;
-        int length = 0;
-        while(temp != null){
-            temp = temp.next;
-            length++;
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        length /= 2;
-        temp = head;
-        if(length == 0){}
-        for(int i=0;i<length-1;i++){
-            temp = temp.next;
-        }
-        ListNode mid = temp.next;
-        temp.next = null;
-        return mid;
-    }
-} 
+        ListNode k = slow.next;
+        slow.next = null;
+        return k;
+    } 
+}
