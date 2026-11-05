@@ -13,9 +13,7 @@ class Solution {
             }
 
             
-            for(int j = i ; j > start - 1;j--){
-                ans++;
-            }
+            ans += i - start + 1;
 
         }
         return ans;
