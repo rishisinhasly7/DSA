@@ -9,59 +9,44 @@
  * }
  */
 class Solution {
-    public ListNode reverseList(ListNode head){
-        ListNode prev = null;
-        ListNode curr = head;
-        while(curr != null){
-            ListNode temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
-        }
-        return prev;
-    }
     public ListNode findMid(ListNode head){
         ListNode slow = head;
         ListNode fast = head;
-        ListNode prev = null; 
+        ListNode prev = new ListNode();
+        prev.next = head;
         while(fast != null && fast.next != null){
-            prev = slow;
+            prev = prev.next;
             slow = slow.next;
             fast = fast.next.next;
         }
         prev.next = null;
         return slow;
     }
-
-    public void reorderList(ListNode head) {
-
-        if(head == null || head.next == null){
-            return ;
+    public ListNode reverse(ListNode head){
+        ListNode prev = null;
+        while(head != null){
+            ListNode temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
         }
+        return prev;
+    }
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null) return ;
 
         ListNode mid = findMid(head);
-        ListNode sHead = reverseList(mid);
-        ListNode curr = head;
-        ListNode prevCurr = null;
-        ListNode prevsHead = null;
-
-        while(curr != null && sHead != null){
-            prevsHead = sHead;
-            prevCurr = curr;
-            ListNode temp1 = curr.next;
-            ListNode temp2 = sHead.next;
-            curr.next = sHead;
-            sHead.next = temp1;
-            curr = temp1;
-            sHead = temp2;
-        }        
-
-        if(sHead != null){
-           prevCurr.next.next = sHead;
+        ListNode secondHead = reverse(mid);
+        ListNode prev = null;
+        while(head != null && secondHead != null){
+            ListNode temp1 = head.next;
+            ListNode temp2 = secondHead.next;
+            head.next = secondHead;
+            secondHead.next = temp1;
+            prev = secondHead;
+            head = temp1;
+            secondHead = temp2;
         }
-        if(curr != null){
-           prevsHead.next.next = curr;
-        }
-        
+       if(secondHead != null) prev.next = secondHead;
     }
 }
