@@ -9,51 +9,40 @@
  * }
  */
 class Solution {
-     public ListNode findMid(ListNode head){
-        ListNode temp = head;
-        ListNode fast = head;
+    public ListNode FindMid(ListNode head){
         ListNode slow = head;
-        int count = 0;
+        ListNode fast = head;
+        ListNode prev = new ListNode();
+        prev.next = head;
         while(fast != null && fast.next != null){
+            prev = prev.next;
             slow = slow.next;
             fast = fast.next.next;
-            count++;
         }
         return slow;
     }
-    public ListNode reverseList(ListNode head){
-        ListNode dummy = null;
-        ListNode curr = head;
-
-        while(curr != null){
-            ListNode temp = curr.next;
-            curr.next = dummy;
-            dummy = curr;
-            curr = temp;
-        }     
-        return dummy;
-
-    }
-
     public boolean isPalindrome(ListNode head) {
-        if(head == null){
-            return false;
+        if(head == null || head.next == null) return true;
+        ListNode mid = FindMid(head);
+        ListNode secondhead = reverse(mid);
+        mid.next = null;
+        while(head != null && secondhead != null){
+            if(head.val != secondhead.val) return false;
+            head = head.next;
+            secondhead = secondhead.next;
         }
-
-        ListNode mid = findMid(head);
-        ListNode secondHead = reverseList(mid);
-        ListNode firstHead = head;
-        ListNode repeatHead = secondHead;
-
-        while(secondHead != null && firstHead != null){
-            if(secondHead.val != firstHead.val){
-                return false;
-            }
-            secondHead = secondHead.next;
-            firstHead = firstHead.next;
-        }
-            // reverseList(repeatHead);
-           return true;
+        return true;
     }
-   
+
+    ListNode reverse(ListNode head){
+        ListNode prev = null;
+        while(head != null){
+            ListNode temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
+        }
+        return prev;
+    }
+    
 }
